@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class App {
 
-    private static final String INPUT_FILE_NAME = "characters.csv";
+    private static final String INPUT_FILE_NAME = "lab-1/src/main/resources/characters.csv";
     private static final String OUTPUT_FILE_NAME = "status-count.csv";
 
     public static void main(String[] args) throws IOException {
