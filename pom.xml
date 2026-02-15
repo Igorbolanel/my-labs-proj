@@ -6,7 +6,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.bolanel.labs</groupId>
+    <groupId>com.bolanel.lab</groupId>
     <artifactId>my-labs-proj</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
