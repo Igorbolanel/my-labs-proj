@@ -6,7 +6,6 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Корневой (parent) проект -->
     <groupId>com.bolanel.labs</groupId>
     <artifactId>my-labs-proj</artifactId>
     <version>1.0.0-SNAPSHOT</version>
@@ -14,17 +13,14 @@
 
     <name>my-labs-proj</name>
 
-    <!-- Общие настройки для всех модулей -->
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <!-- Список модулей -->
     <modules>
         <module>lab-1</module>
-        <!-- потом добавишь lab-2, lab-3 и т.д. -->
     </modules>
 
 </project>

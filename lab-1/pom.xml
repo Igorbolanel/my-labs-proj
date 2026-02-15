@@ -6,20 +6,16 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Связь с родительским pom -->
     <parent>
         <groupId>com.bolanel.labs</groupId>
         <artifactId>my-labs-proj</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <!-- относительный путь к parent (по умолчанию .., можно не указывать) -->
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <!-- Только artifactId, groupId и version наследуются от родителя -->
     <artifactId>lab-1</artifactId>
     <name>lab-1</name>
 
-    <!-- Здесь будут зависимости конкретно для lab-1 (пока не нужны) -->
     <dependencies>
     </dependencies>
 
