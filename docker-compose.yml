@@ -1,17 +1,17 @@
-version: "3.8"
+version: '3.8'
 
 services:
   postgres:
     image: postgres:18
     container_name: lab2-postgres
     environment:
-      POSTGRES_DB: employeesbd
+      POSTGRES_DB: employeesdb
       POSTGRES_USER: labuser
       POSTGRES_PASSWORD: labpass
     ports:
       - "5432:5432"
     volumes:
-      - lab2-postgres-/var/lib/postgresql/data
+      - lab2-postgres-data:/var/lib/postgresql/data
 
 volumes:
-  lab2-postgres-
+  lab2-postgres-data:
