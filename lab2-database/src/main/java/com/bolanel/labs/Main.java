@@ -1,8 +1,7 @@
 package com.bolanel.labs;
 
-import com.bolanel.labs.entity.Employee;
-import com.bolanel.labs.repository.EmployeeRepository;
-import com.bolanel.labs.repository.EmployeeRepositoryImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +12,8 @@ import java.util.List;
 import java.util.Properties;
 
 public class Main {
+
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
         Properties properties = loadDbProperties();
@@ -27,40 +28,40 @@ public class Main {
             // CREATE
             Employee newEmployee = new Employee("John Doe", 1000.0);
             int id = repository.save(newEmployee);
-            System.out.println("Created employee with id = " + id);
+            log.info("Created employee with id = {}", id);
 
             // READ by id
             Employee found = repository.findById(id);
-            System.out.println("Found by id: " + found);
+            log.info("Found by id: {}", found);
 
             // READ all
             List<Employee> allEmployees = repository.findAll();
-            System.out.println("All employees: " + allEmployees);
+            log.info("All employees: {}", allEmployees);
 
             // UPDATE
             found.setSalary(1500.0);
             boolean updated = repository.update(found);
-            System.out.println("Updated: " + updated);
+            log.info("Updated: {}", updated);
 
             Employee afterUpdate = repository.findById(id);
-            System.out.println("After update: " + afterUpdate);
+            log.info("After update: {}", afterUpdate);
 
             // DELETE
             repository.deleteById(id);
-            System.out.println("Deleted employee with id = " + id);
+            log.info("Deleted employee with id = {}", id);
 
             Employee afterDelete = repository.findById(id);
-            System.out.println("After delete (should be null): " + afterDelete);
+            log.info("After delete (should be null): {}", afterDelete);
 
         } catch (SQLException e) {
-            System.err.println("Failed to connect to database");
-            e.printStackTrace();
+            log.error("Failed to connect to database", e);
         }
     }
 
     private static Properties loadDbProperties() {
         Properties properties = new Properties();
-        try (InputStream is = Main.class.getClassLoader().getResourceAsStream("application.properties")) {
+        try (InputStream is = Main.class.getClassLoader()
+                .getResourceAsStream("application.properties")) {
             if (is == null) {
                 throw new IllegalStateException("application.properties not found in resources");
             }

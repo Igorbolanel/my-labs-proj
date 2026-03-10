@@ -1,4 +1,4 @@
-package com.bolanel.labs.entity;
+package com.bolanel.labs;
 
 public class Employee {
 

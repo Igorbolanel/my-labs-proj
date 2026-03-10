@@ -1,12 +1,15 @@
-package com.bolanel.labs.repository;
+package com.bolanel.labs;
 
-import com.bolanel.labs.entity.Employee;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
+
+    private static final Logger log = LoggerFactory.getLogger(EmployeeRepositoryImpl.class);
 
     private final Connection connection;
 
@@ -27,7 +30,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
         try (Statement statement = connection.createStatement()) {
             statement.execute(sql);
+            log.info("Table employee is ready");
         } catch (SQLException e) {
+            log.error("Failed to create table employee", e);
             throw new RuntimeException("Failed to create table employee", e);
         }
     }
@@ -52,12 +57,14 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
                 if (generatedKeys.next()) {
                     int id = generatedKeys.getInt(1);
                     employee.setId(id);
+                    log.debug("Generated id = {} for employee {}", id, employee.getName());
                     return id;
                 } else {
                     throw new RuntimeException("Saving employee failed, no ID obtained");
                 }
             }
         } catch (SQLException e) {
+            log.error("Failed to save employee", e);
             throw new RuntimeException("Failed to save employee", e);
         }
     }
@@ -76,6 +83,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
                 return null;
             }
         } catch (SQLException e) {
+            log.error("Failed to find employee by id {}", id, e);
             throw new RuntimeException("Failed to find employee by id " + id, e);
         }
     }
@@ -93,6 +101,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             }
             return result;
         } catch (SQLException e) {
+            log.error("Failed to find all employees", e);
             throw new RuntimeException("Failed to find all employees", e);
         }
     }
@@ -113,6 +122,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             int updated = ps.executeUpdate();
             return updated > 0;
         } catch (SQLException e) {
+            log.error("Failed to update employee with id {}", employee.getId(), e);
             throw new RuntimeException("Failed to update employee with id " + employee.getId(), e);
         }
     }
@@ -125,6 +135,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
+            log.error("Failed to delete employee with id {}", id, e);
             throw new RuntimeException("Failed to delete employee with id " + id, e);
         }
     }

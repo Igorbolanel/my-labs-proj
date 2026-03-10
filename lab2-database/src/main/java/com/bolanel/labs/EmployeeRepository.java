@@ -1,6 +1,4 @@
-package com.bolanel.labs.repository;
-
-import com.bolanel.labs.entity.Employee;
+package com.bolanel.labs;
 
 import java.util.List;
 
