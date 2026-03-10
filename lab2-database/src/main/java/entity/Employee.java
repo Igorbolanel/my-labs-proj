@@ -2,7 +2,7 @@ package com.bolanel.labs.entity;
 
 public class Employee {
 
-    private Integer id;       // может быть null до сохранения
+    private Integer id;
     private String name;
     private Double salary;
 
