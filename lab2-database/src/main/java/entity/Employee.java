@@ -1,29 +1,29 @@
-package org.example.entity;
+package com.bolanel.labs.entity;
 
 public class Employee {
-    private int id;
+
+    private Integer id;       // может быть null до сохранения
     private String name;
-    private double salary;
+    private Double salary;
 
     public Employee() {
     }
 
-    public Employee(int id, String name, double salary) {
+    public Employee(Integer id, String name, Double salary) {
         this.id = id;
         this.name = name;
         this.salary = salary;
     }
 
-    public Employee(String name, double salary) {
-        this.name = name;
-        this.salary = salary;
+    public Employee(String name, Double salary) {
+        this(null, name, salary);
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,11 +35,11 @@ public class Employee {
         this.name = name;
     }
 
-    public double getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
     }
 
