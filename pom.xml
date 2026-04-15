@@ -38,6 +38,7 @@
     <modules>
         <module>lab-1</module>
         <module>lab2-database</module>
+        <module>lab3-tests</module>
     </modules>
 
 </project>

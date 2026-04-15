@@ -25,20 +25,16 @@ public class Main {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             EmployeeRepository repository = new EmployeeRepositoryImpl(connection);
 
-            // CREATE
             Employee newEmployee = new Employee("John Doe", 1000.0);
             int id = repository.save(newEmployee);
             log.info("Created employee with id = {}", id);
 
-            // READ by id
             Employee found = repository.findById(id);
             log.info("Found by id: {}", found);
 
-            // READ all
             List<Employee> allEmployees = repository.findAll();
             log.info("All employees: {}", allEmployees);
 
-            // UPDATE
             found.setSalary(1500.0);
             boolean updated = repository.update(found);
             log.info("Updated: {}", updated);
@@ -46,7 +42,6 @@ public class Main {
             Employee afterUpdate = repository.findById(id);
             log.info("After update: {}", afterUpdate);
 
-            // DELETE
             repository.deleteById(id);
             log.info("Deleted employee with id = {}", id);
 
