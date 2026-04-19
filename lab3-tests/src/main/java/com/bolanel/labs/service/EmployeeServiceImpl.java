@@ -15,13 +15,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee create(Employee employee) {
-        validateEmployee(employee);
+    public int save(String name, Double salary) {
+        validateName(name);
+        validateSalary(salary);
 
-        int id = employeeRepository.save(employee);
-        employee.setId(id);
-
-        return employee;
+        Employee employee = new Employee(name, salary);
+        return employeeRepository.save(employee);
     }
 
     @Override
@@ -37,13 +36,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    public Employee findByName(String name) {
+        validateName(name);
+
+        List<Employee> employees = employeeRepository.findAll();
+
+        return employees.stream()
+                .filter(employee -> employee.getName() != null)
+                .filter(employee -> employee.getName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElseThrow(() ->
+                        new EmployeeNotFoundException("Employee with name '" + name + "' not found"));
+    }
+
+    @Override
     public List<Employee> findAll() {
         return employeeRepository.findAll();
     }
 
     @Override
-    public Employee update(Employee employee) {
+    public void update(Employee employee) {
         validateEmployee(employee);
 
         if (employee.getId() == null || employee.getId() <= 0) {
@@ -59,8 +71,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (!updated) {
             throw new RuntimeException("Failed to update employee with id " + employee.getId());
         }
-
-        return employee;
     }
 
     @Override
@@ -75,33 +85,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public Employee findByName(String name) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Employee name must not be null or blank");
-        }
-
-        List<Employee> employees = employeeRepository.findAll();
-
-        return employees.stream()
-                .filter(employee -> employee.getName() != null)
-                .filter(employee -> employee.getName().equalsIgnoreCase(name))
-                .findFirst()
-                .orElseThrow(() ->
-                        new EmployeeNotFoundException("Employee with name '" + name + "' not found"));
-    }
-
     private void validateEmployee(Employee employee) {
         if (employee == null) {
             throw new IllegalArgumentException("Employee must not be null");
         }
+        validateName(employee.getName());
+        validateSalary(employee.getSalary());
+    }
 
-        if (employee.getName() == null || employee.getName().isBlank()) {
+    private void validateName(String name) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Employee name must not be null or blank");
         }
+    }
 
-        if (employee.getSalary() == null || employee.getSalary() < 0) {
+    private void validateSalary(Double salary) {
+        if (salary == null || salary < 0) {
             throw new IllegalArgumentException("Employee salary must not be null or negative");
         }
     }
